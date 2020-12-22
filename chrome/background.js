@@ -12,3 +12,12 @@ chrome.webRequest.onBeforeSendHeaders.addListener(
 	{ urls: ["*://*.hls.ttvnw.net/*"] },
 	["blocking", "requestHeaders", "extraHeaders"]
 );
+
+chrome.webRequest.onBeforeRequest.addListener(
+	() => {
+		console.log("REPLACED");
+		return { redirectUrl: chrome.runtime.getURL("core.js") };
+	},
+	{ urls: ["*://static.twitchcdn.net/assets/core-*.js"] },
+	["blocking"]
+);
